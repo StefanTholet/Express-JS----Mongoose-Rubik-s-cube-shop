@@ -43,7 +43,7 @@ router.post('/products/add-accessory', async(req, res) => {
 
 router.get('/products/:productId/attach', async (req, res) => {
     const cube = await productService.getOne(req.params.productId);
-    const accessories = await accessoryService.getAll();
+    const accessories = await accessoryService.getUnAttached(cube.accessories);
     res.render('attachAccessory', {title: 'Attach accessory to cube', cube, accessories})
 });
 
@@ -55,9 +55,8 @@ router.post('/products/:productId/attach', async (req, res) => {
 })
 
 router.get('/products/:productId/details', async (req, res) => {
-    const cube = await productService.getCubeAndAccessories(req.params.productId);
-    const accessories = cube.accessories;
-    console.log(accessories)
+    let cube = await productService.getCubeAndAccessories(req.params.productId);
+    const accessories = cube.accessories;  
     res.render('details', {title: 'Product details', cube, accessories})
 });
 

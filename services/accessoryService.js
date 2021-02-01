@@ -12,8 +12,13 @@ function getOne(id) {
     return Accessory.find(id).lean();
 }
 
+function getUnAttached(accessories) {
+    return Accessory.find({_id:{ $nin: accessories}}).lean();
+}
+
 module.exports = {
     create,
     getAll,
-    getOne
+    getOne,
+    getUnAttached
 }
