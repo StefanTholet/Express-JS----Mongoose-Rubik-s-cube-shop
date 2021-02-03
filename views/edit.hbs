@@ -1,0 +1,28 @@
+<main>
+      <h1>Edit Cube</h1>
+      <div class="form">
+          <h3 style="width: 100%; background-color:#607588; color:white;padding:15px;border-top-left-radius: 4px; border-top-right-radius: 4px;"; >Cube Details</h3>
+        <form action='/products/{{cube._id}}/edit-cube' method="POST">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" value="{{cube.name}}">
+          <label for="name">Description</label>
+          <textarea id="name" name="description">{{cube.description}}</textarea>
+          <label for="image">ImageUrl</label>
+          <input type="text" id="image" name="imageUrl" value="{{cube.imageUrl}}">
+          <img src="{{cube.imageUrl}}" alt="cube image" style="display: block; margin: 0 auto">
+          <label for="difficulty">Difficulty</label>
+          <input id="difficulty" name="difficultyLevel" value="{{cube.difficultyLevel}}">
+          </input>
+          <div style="display: flex; flex-direction:column; margin-top: 40px">
+          <h3 style="width: 100%; background-color:#607588; color:white;padding:15px;border-top-left-radius: 4px; border-top-right-radius: 4px;"; >Cube Accessories</h3>
+          {{#each accessories}}
+          <label for="{{_id}}" style="display: block;"><input type="checkbox" name="accessories" id="{{_id}}" value="{{_id}}" style="vertical-align: middle;position:relative">
+          Remove {{name}} Accessory</label>
+          <img src="{{imageUrl}}" alt="accessory image" style="display: block; margin: 0 auto">
+          {{/each}}
+          </div>
+          <input type="submit" value="Edit Cube">
+        </form>
+      </div>
+    </main>
+  

@@ -15,7 +15,7 @@ router.get('/about', (req, res) => {
 
 router.get('/products-search', async (req, res) => {
     const cubes = await productService.searchCubes(req.query)
-    res.render('home', {title: 'Browse Products', cubes})
+    res.render('home', { title: 'Browse Products', cubes })
 })
 
 router.get('/products/add-cube', (req, res) => {
@@ -24,7 +24,7 @@ router.get('/products/add-cube', (req, res) => {
 
 router.post('/products/add-cube', async (req, res) => {
     try {
-        const cube =  productService.create(req.body);
+        const cube = productService.create(req.body);
     } catch (err) {
         console.log(err);
         return;
@@ -64,6 +64,18 @@ router.get('/products/:productId/details', async (req, res) => {
     res.render('details', { title: 'Product details', cube, accessories })
 });
 
+router.get('/products/:productId/edit', async (req, res) => {
+    let cube = await productService.getCubeAndAccessories(req.params.productId);
+    let accessories = cube.accessories;
+    res.render('edit', { title: 'Edit Cube', cube, accessories })
+});
 
+router.post('/products/:productId/edit-cube', async (req, res) => {
+    const cubeId = req.params.productId;
+    const cubeDetails = req.body;
+    const updatedCube = await productService.edit(cubeDetails, cubeId);
+    
+    res.redirect(`/products/${cubeId}/details`);
+})
 
 module.exports = router;
